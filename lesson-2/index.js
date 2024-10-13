@@ -6,11 +6,9 @@
 console.log("\nTask 1\n");
 function addParamsToRequest(params) {
     let count = 0;
-    return function sendData(data) {
-        count++;
-        return {...params, data: data, count : count};
+    return function(data) {
+        return {...params, data, count: count++};
     }
-
 }
 
 const sendData = addParamsToRequest({'access-token': 'qwerty'} );
@@ -35,11 +33,7 @@ const obj = {
 
 obj.getData.call({name: 'Victoria', age: 23});
 
-function newPerson(name, age) {
-    return obj.getData.bind({name, age}); 
-}
-
-const person = newPerson("Artem", 20);
+const person = obj.getData.bind({name: 'Artem', age: 20});
 person();
 
 
