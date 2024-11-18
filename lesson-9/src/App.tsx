@@ -10,16 +10,17 @@ import StripePage from './layouts/StripePage';
 import ViewPost from './layouts/ViewPost';
 import { NotificationProvider } from './contexts/SocketContext';
 import { RootState } from './store/store';
-import { PageProvider } from './contexts/PageContext';
+
 import { FeedProvider } from './contexts/RefreshPageContext';
+import { ControlBarProvider } from './contexts/ControlBarContext';
 
 const App: React.FC = () => {
   const userState = useSelector((state: RootState) => state.user.state);
 
   return (
     <Router>
-      <PageProvider>
         <FeedProvider>
+        <ControlBarProvider>
           <NotificationProvider>
             <Routes>
               <Route path="/" element={<StripePage />} />
@@ -44,8 +45,9 @@ const App: React.FC = () => {
               <Route path="view/:id" element={<ViewPost />} />
             </Routes>
           </NotificationProvider>
+          </ControlBarProvider>
         </FeedProvider>
-      </PageProvider>
+      
     </Router>
   );
 };

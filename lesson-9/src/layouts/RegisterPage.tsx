@@ -21,7 +21,6 @@ const RegisterPage: React.FC = () => {
 
   return (
     <>
-      <ControlBar />
       <RegisterForm onSubmit={handleRegister} />
     </>
   );

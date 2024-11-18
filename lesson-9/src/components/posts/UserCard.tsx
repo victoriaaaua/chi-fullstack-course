@@ -14,19 +14,31 @@ import CommentsList from "../comments/CommentsList";
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import { useNavigate } from "react-router-dom";
 
-const UserCard = ({ isAuthor, exhibitId, imageUrl, description, user, createdAt, commentCount, deletePost }) => {
+const UserCard = ({ isAuthor, id, imageUrl, description, user, createdAt, commentCount, deletePost }) => {
     const [showComments, setShowComments] = useState(false);
     const navigate = useNavigate();
 
     const handleCommentClick = () => setShowComments(!showComments);
 
-    const handleDeletePost = () => deletePost(exhibitId);
+    const handleDeletePost = () => deletePost(id);
 
     const openPost = () => {
-        navigate(`/view/${exhibitId}`);
+        navigate(`/view/${id}`);
     }
 
     return (
+        <Box
+            sx={{
+              border: '1px solid #ddd',
+              borderRadius: 2,
+              boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+              width: 600,
+              justifyContent: 'center',
+              alignItems: 'center',
+              margin: '0 auto',
+              mb: 6,
+              mt: 6,
+            }}>
         <Card
             variant="outlined"
             sx={{ minWidth: 300, '--Card-radius': (theme) => theme.vars.radius.xs }}
@@ -107,9 +119,10 @@ const UserCard = ({ isAuthor, exhibitId, imageUrl, description, user, createdAt,
                 </Link>
 
             </CardContent>
-            {showComments && (<CommentsList exhibitId={exhibitId} />)}
+            {showComments && (<CommentsList exhibitId={id} />)}
 
         </Card>
+        </Box>
     )
 }
 

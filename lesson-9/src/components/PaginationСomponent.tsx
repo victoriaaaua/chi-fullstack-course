@@ -1,20 +1,26 @@
 import React from 'react';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
+import { useNavigate } from 'react-router-dom';
 
 interface PaginationProps {
   lastPage: number; 
   page: number; 
-  onPageChange: (event: React.ChangeEvent<unknown>, value: number) => void; 
+  navigationPath: string
 }
 
-const PaginationComponent: React.FC<PaginationProps> = ({ lastPage, page, onPageChange }) => {
+const PaginationComponent: React.FC<PaginationProps> = ({ lastPage, page, navigationPath }) => {
+  const navigate = useNavigate();
+
+  const handlePageChange = (event: React.ChangeEvent<unknown>, nextPage: number) => {
+    navigate(`${navigationPath}${nextPage}`, {replace: true});
+  }
   return (
     <Stack spacing={2} alignItems="center" sx={{ mt: 2 }}>
       <Pagination
         count={lastPage}
         page={page}
-        onChange={onPageChange}
+        onChange={handlePageChange}
         color="primary"
         variant="outlined"
         shape="rounded"

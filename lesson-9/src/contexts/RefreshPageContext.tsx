@@ -28,7 +28,7 @@ export const FeedProvider: React.FC<FeedProviderProps> = ({ children }) => {
 export const useRefresh = (): RefreshPageType => {
   const context = useContext(RefreshPageContext);
   if (!context) {
-    throw new Error('Error!!!');
+    throw new Error('Error');
   }
   return context;
 };

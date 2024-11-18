@@ -44,7 +44,6 @@ const ViewPost = () => {
             {loading && <Typography>Loading...</Typography>}
             {error && <Typography>Error fetching posts.</Typography>}
             <Box sx={{ width: "100%", padding: 2 }}>
-                <ControlBar />
                 {post ? (
                     <ViewPostForm
                         key={`one-post-${post.id}`}

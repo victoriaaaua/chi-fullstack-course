@@ -42,7 +42,6 @@ const PostPage = () => {
 
     return (
         <>
-            <ControlBar />
             {loading ? (
                 <Typography variant="body1">Loading...</Typography>
             ) : error ? (

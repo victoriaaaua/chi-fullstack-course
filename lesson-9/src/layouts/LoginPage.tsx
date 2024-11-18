@@ -24,7 +24,6 @@ const LoginPage: React.FC = () => {
 
   return (
     <div>
-      <ControlBar />
       <LoginForm onSubmit={handleLogin} />
     </div>
   );

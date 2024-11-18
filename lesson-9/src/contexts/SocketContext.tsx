@@ -1,8 +1,9 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { Snackbar } from '@mui/material';
 import { io } from 'socket.io-client';
-import { usePage } from './PageContext';
+
 import { useRefresh } from './RefreshPageContext';
+import { useLocation } from 'react-router-dom';
 
 const SOCKET_SERVER_URL = 'http://ec2-13-49-67-34.eu-north-1.compute.amazonaws.com:3000/notifications';
 
@@ -23,7 +24,8 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({ 
   const [notification, setNotification] = useState<Notification | null>(null);
   const [showNotification, setShowNotification] = useState(false);
   
-  const {currentPage } = usePage(); 
+  
+  const location = useLocation();
   const { refreshPage } = useRefresh();
   useEffect(() => {
     const socket = io(SOCKET_SERVER_URL);
@@ -36,7 +38,7 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({ 
     socket.on('newPost', (data) => {
       setNotification({ data: data.message, user: data.user });
       setShowNotification(true);
-      if (currentPage === 1) {
+      if (location.search === '?page=1') {
         refreshPage(); 
       }
     });
@@ -44,7 +46,7 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({ 
     return () => {
       socket.disconnect();
     };
-  }, [currentPage]);
+  }, [location.search]);
 
   return (
     <NotificationContext.Provider value={{ notification, showNotification, setShowNotification }}>
